@@ -73,6 +73,7 @@ var transformations = {
 };
 R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
       </code>
+      <p id="ramda-repl-passing-output-target"></p>
     </section>
 
     <!-- For demonstrating persist-to-queryString -->
@@ -101,10 +102,14 @@ R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 10
           // If unset, initialValue will use the value or textcontent of the
           // target element.
           initialValue: URI.decode(window.location.hash).substring(2),
+          passingOutput: document.getElementById('ramda-repl-passing-output-target'),
 
           // Called with the pre-compiled content
-          onChange : function(code) {
-            window.location.hash = '?' + URI.encode(code);
+          onChange : function(source, passingState) {
+            window.location.hash = '?' + URI.encode(source);
+            if (passingState) {
+              window.location.search = '?passingState=' + URI.encode(passingState);
+            }
           }
 
         });
